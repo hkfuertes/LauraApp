@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">LauraApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_planta">Planta</string>
+    <string name="title_ptes_ic">Pacientes IC</string>
+    <string name="title_sesion">Sesion</string>
+    <string name="title_guardias">Guardias</string>
+    <string name="title_ajustes">Ajustes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="numero">Numero</string>
+    <string name="edad">Edad</string>
+    <string name="motivo_ppal">Motivo Principal</string>
+    <string name="serv_sol">Servicio Solicitado</string>
+    <string name="resolucion">Resolucion</string>
+    <string name="dia">Dia</string>
+    <string name="tipo">Tipo</string>
+    <string name="sitio">Sitio</string>
+    <string name="titulo">Titulo</string>
+    <string name="motivo_consulta">Motivo de la Consulta</string>
+    <string name="motivo_sec">Motivo Secundario</string>
+    <string name="adjuntar">Adjuntar Archivo</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+</resources>

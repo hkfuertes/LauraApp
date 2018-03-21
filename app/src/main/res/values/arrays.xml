@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planta_tipos_adjuntos">
+        <item>EKG</item>
+        <item>RX</item>
+        <item>ECO TT</item>
+        <item>ECO TE</item>
+        <item>RM</item>
+        <item>TAC</item>
+    </string-array>
+</resources>

@@ -1,0 +1,47 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.mfuertes.laurapp.lauraapp.Fragments.ptes_ic">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding"
+        android:orientation="vertical">
+
+        <DatePicker
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom"/>
+
+        <EditText
+            android:id="@+id/guardia_tipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tipo"
+            android:layout_marginBottom="@dimen/margin_bottom"/>
+
+        <EditText
+            android:id="@+id/guardia_numero"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/numero"
+            android:layout_marginBottom="@dimen/margin_bottom"/>
+        <EditText
+            android:id="@+id/guardia_motivo"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:minLines="4"
+            android:gravity="top|left"
+            android:maxLines="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/motivo_consulta"
+            android:layout_marginBottom="@dimen/margin_bottom"/>
+
+    </LinearLayout>
+
+</ScrollView>

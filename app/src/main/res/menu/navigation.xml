@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_planta"
+        android:icon="@drawable/planta"
+        android:title="@string/title_planta" />
+
+    <item
+        android:id="@+id/navigation_ptes_ic"
+        android:icon="@drawable/ptes_ic"
+        android:title="@string/title_ptes_ic" />
+
+    <item
+        android:id="@+id/navigation_sesion"
+        android:icon="@drawable/sesion"
+        android:title="@string/title_sesion" />
+
+    <item
+        android:id="@+id/navigation_guardias"
+        android:icon="@drawable/guardias"
+        android:title="@string/title_guardias" />
+
+    <!--
+    <item
+        android:id="@+id/navigation_ajustes"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/title_ajustes" />
+        -->
+
+</menu>

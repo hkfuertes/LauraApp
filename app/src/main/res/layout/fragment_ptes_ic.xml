@@ -1,0 +1,60 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.mfuertes.laurapp.lauraapp.Fragments.ptes_ic">
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/ptes_ic_numero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/numero"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+    <EditText
+        android:id="@+id/ptes_ic_edad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/edad"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+    <EditText
+        android:id="@+id/ptes_ic_motivo_ppal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="10"
+        android:hint="@string/motivo_ppal"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+    <EditText
+        android:id="@+id/ptes_ic_serv_sol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="10"
+        android:hint="@string/serv_sol"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+    <EditText
+        android:id="@+id/ptes_ic_resolucion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="10"
+        android:hint="@string/resolucion"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+</LinearLayout>
+
+</ScrollView>
