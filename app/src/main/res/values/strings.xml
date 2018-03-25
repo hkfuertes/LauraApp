@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LauraApp</string>
+    <string name="app_name">FundacionApp</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -25,4 +25,5 @@
     <string name="adjuntar">Adjuntar Archivo</string>
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="title_activity_list">ListActivity</string>
 </resources>
