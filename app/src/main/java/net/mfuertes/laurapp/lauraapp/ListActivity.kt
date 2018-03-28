@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_list.*
 import net.mfuertes.laurapp.lauraapp.Adapters.MainMenuAdapter
@@ -13,6 +15,9 @@ import net.mfuertes.laurapp.lauraapp.Fragments.guardia
 import net.mfuertes.laurapp.lauraapp.Fragments.planta
 import net.mfuertes.laurapp.lauraapp.Fragments.ptes_ic
 import net.mfuertes.laurapp.lauraapp.Fragments.sesion
+import android.widget.Toast
+
+
 
 class ListActivity : AppCompatActivity(), MainMenuAdapter.OnItemClickListener {
 
@@ -44,6 +49,23 @@ class ListActivity : AppCompatActivity(), MainMenuAdapter.OnItemClickListener {
                     .setAction("Action", null).show()
         }
         */
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            R.id.navigation_ajustes -> {
+                // write your code here
+                startActivity(Intent(this, SettingsActivity::class.java))
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     private fun generateMenu(): List<String>{

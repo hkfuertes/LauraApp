@@ -1,10 +1,12 @@
 package net.mfuertes.laurapp.lauraapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import net.mfuertes.laurapp.lauraapp.Fragments.guardia
 import net.mfuertes.laurapp.lauraapp.Fragments.planta
@@ -56,6 +58,17 @@ class MainActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            R.id.navigation_ajustes -> {
+                // write your code here
+                startActivity(Intent(this, SettingsActivity::class.java))
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     fun switchFragments(fragment: Fragment) {
