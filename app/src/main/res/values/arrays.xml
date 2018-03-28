@@ -8,4 +8,14 @@
         <item>RM</item>
         <item>TAC</item>
     </string-array>
+
+        <string-array name="listArray">
+            <item>Ace</item>
+            <item>Club</item>
+        </string-array>
+
+        <string-array name="listValues">
+            <item>Ace</item>
+            <item>Club</item>
+        </string-array>
 </resources>

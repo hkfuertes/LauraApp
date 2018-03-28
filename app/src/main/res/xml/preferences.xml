@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:id="@+id/sheet_name"
+        android:title="@string/sheet_name"
+        android:key="sheet_name"
+        android:defaultValue="@string/app_name"
+        android:summary="@string/app_name"/>
+    <SwitchPreference
+        android:id="@+id/connect"
+        android:title="@string/connect_google"
+        android:key="connection_token"/>
+    <EditTextPreference
+        android:id="@+id/sheet_id"
+        android:title="@string/sheet_id"
+        android:key="sheet_id"
+        android:summary="sheet_id"/>
+</PreferenceScreen>

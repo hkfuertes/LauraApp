@@ -15,37 +15,15 @@ import java.io.IOException
  * Created by hkfuertes on 28-Mar-18.
  */
 
-class CreateSheetTask : AsyncTask<Void, Void, Spreadsheet> {
-    private var mService: com.google.api.services.sheets.v4.Sheets
-    private var mLastError: Exception? = null
+class CreateSheetTask : SheetTask {
+
     private val titulo: String
 
-    constructor(credential: GoogleAccountCredential, appname: String, titulo: String) {
+    constructor(credential: GoogleAccountCredential, appname: String, titulo: String, listener: OnFinishListener) : super(credential, appname, listener) {
         this.titulo = titulo
-        val transport = AndroidHttp.newCompatibleTransport()
-        val jsonFactory = JacksonFactory.getDefaultInstance()
-        mService = Sheets.Builder(
-                transport, jsonFactory, credential)
-                .setApplicationName(appname)
-                .build()
     }
 
-
-
-    override fun doInBackground(vararg params: Void): Spreadsheet? {
-        try {
-            return getDataFromApi()
-        } catch (e: Exception) {
-            mLastError = e
-            cancel(true)
-            return null
-        }
-
-    }
-
-    @Throws(IOException::class)
-    private fun getDataFromApi(): Spreadsheet {
-
+    override fun executeCommand(): Spreadsheet {
         val requestBody = Spreadsheet()
         val properties = SpreadsheetProperties()
         properties.title = titulo

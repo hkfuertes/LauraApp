@@ -61,7 +61,7 @@ class ListActivity : AppCompatActivity(), MainMenuAdapter.OnItemClickListener {
         when (item.getItemId()) {
             R.id.navigation_ajustes -> {
                 // write your code here
-                startActivity(Intent(this, SettingsActivity::class.java))
+                startActivity(Intent(this, SingleSettingsActivity::class.java))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
