@@ -9,13 +9,33 @@
         <item>TAC</item>
     </string-array>
 
-        <string-array name="listArray">
-            <item>Ace</item>
-            <item>Club</item>
-        </string-array>
+    <string-array name="planta">
+        <item>Numero</item>
+        <item>Edad</item>
+        <item>Motivo Principal</item>
+        <item>Motivo Secundario</item>
+        <item>Adjuntos</item>
+    </string-array>
 
-        <string-array name="listValues">
-            <item>Ace</item>
-            <item>Club</item>
-        </string-array>
+    <string-array name="ptes_ic">
+        <item>Numero</item>
+        <item>Edad</item>
+        <item>Motivo Principal</item>
+        <item>Servicio Solicitado</item>
+        <item>Resolucion</item>
+    </string-array>
+
+    <string-array name="sesion">
+        <item>Fecha</item>
+        <item>Tipo</item>
+        <item>Numero</item>
+        <item>Motivo</item>
+    </string-array>
+
+    <string-array name="guardias">
+        <item>Tipo</item>
+        <item>Sitio</item>
+        <item>Titulo</item>
+        <item>Fecha</item>
+    </string-array>
 </resources>

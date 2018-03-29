@@ -3,16 +3,16 @@
     <SwitchPreference
         android:id="@+id/connect"
         android:title="@string/connect_google"
-        android:key="connection_token"/>
+        android:key="@string/sheet_connect_key"/>
     <EditTextPreference
         android:id="@+id/sheet_name"
         android:title="@string/sheet_name"
-        android:key="sheet_name"
+        android:key="@string/sheet_name_key"
         android:defaultValue="@string/app_name"
         android:summary="@string/app_name"/>
     <Preference
         android:id="@+id/sheet_url"
-        android:title="@string/sheet_id"
-        android:key="sheet_id"
-        android:summary="sheet_id"/>
+        android:title="@string/sheet_url"
+        android:key="@string/sheet_url_key"
+        android:summary="sheet_url"/>
 </PreferenceScreen>

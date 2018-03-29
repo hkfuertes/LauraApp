@@ -27,6 +27,7 @@ abstract class SheetTask : AsyncTask<Void, Void, Spreadsheet> {
     val listener : OnFinishListener?
 
     constructor(credential: GoogleAccountCredential, appname: String, listener: OnFinishListener) {
+        //Log.d("TEST", credential.selectedAccountName)
         this.listener = listener
         val transport = AndroidHttp.newCompatibleTransport()
         val jsonFactory = JacksonFactory.getDefaultInstance()
@@ -43,6 +44,7 @@ abstract class SheetTask : AsyncTask<Void, Void, Spreadsheet> {
             return executeCommand()
         } catch (e: Exception) {
             mLastError = e
+            e.printStackTrace()
             cancel(true)
             return null
         }
@@ -55,6 +57,6 @@ abstract class SheetTask : AsyncTask<Void, Void, Spreadsheet> {
     }
 
     @Throws(IOException::class)
-    abstract fun executeCommand(): Spreadsheet
+    abstract fun executeCommand(): Spreadsheet?
 
 }

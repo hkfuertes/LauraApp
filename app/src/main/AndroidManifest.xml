@@ -31,8 +31,7 @@
         <activity android:name=".testActivity">
         </activity>
         <activity
-            android:name=".SingleSettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:name=".SingleSettingsActivity"/>
     </application>
 
 </manifest>

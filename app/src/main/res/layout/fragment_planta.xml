@@ -44,6 +44,8 @@
             android:maxLines="10"
             android:hint="@string/motivo_sec"
             android:layout_marginBottom="@dimen/margin_bottom"/>
+
+        <!--
         <Button
             android:id="@+id/planta_adjuntar"
             android:layout_width="match_parent"
@@ -53,6 +55,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+            -->
     </LinearLayout>
 
 </ScrollView>

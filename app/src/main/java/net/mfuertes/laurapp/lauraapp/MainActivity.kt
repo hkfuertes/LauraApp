@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.navigation_web ->{
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PreferenceManager.getDefaultSharedPreferences(this).getString("sheet_id",null).toString()))
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.sheet_url_key),null).toString()))
                 startActivity(browserIntent)
                 return true
             }

@@ -9,11 +9,8 @@ import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
-import android.preference.EditTextPreference
-import android.preference.Preference
+import android.preference.*
 import android.preference.Preference.OnPreferenceClickListener
-import android.preference.PreferenceFragment
-import android.preference.SwitchPreference
 import android.util.Log
 import android.widget.Toast
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
@@ -21,6 +18,7 @@ import com.google.api.client.util.ExponentialBackOff
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.api.services.sheets.v4.model.Spreadsheet
 import net.mfuertes.laurapp.lauraapp.Connection.CreateSheetTask
+import net.mfuertes.laurapp.lauraapp.Connection.RetrieveSheetTask
 import net.mfuertes.laurapp.lauraapp.Connection.SheetTask.OnFinishListener
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
@@ -28,12 +26,16 @@ import java.util.*
 
 class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.PermissionCallbacks {
 
+    val SHEET_ID = "sheet_id"
+    val SHEET_URL = "sheet_url"
+    val SHEET_NAME = "sheet_name"
+    val CONNECTED = "connection_token"
+
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        getAddCredentials()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -42,18 +44,16 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
     }
 
     private lateinit var mCredential: GoogleAccountCredential
-    private val SCOPES = arrayOf(SheetsScopes.DRIVE, SheetsScopes.SPREADSHEETS)
+    val SCOPES = arrayOf(SheetsScopes.DRIVE, SheetsScopes.SPREADSHEETS)
 
     internal val REQUEST_ACCOUNT_PICKER = 1000
     internal val REQUEST_AUTHORIZATION = 1001
-    internal val REQUEST_GOOGLE_PLAY_SERVICES = 1002
     internal val REQUEST_PERMISSION_GET_ACCOUNTS = 1003
 
-    private val NO_PLAY_SERVICES = "This app requires Google Play Services. Please install " + "Google Play Services on your device and relaunch this app."
     private val NO_CONNECTION = "No network connection available."
-    private val PREF_ACCOUNT_NAME = "accountName"
     private val PERMISSION_REQUEST = "This app needs to access your Google account (via Contacts)."
-    private val APP_NAME = "FundacionApp"
+
+    private var accountName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,28 +61,28 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(applicationContext, Arrays.asList(*SCOPES)).setBackOff(ExponentialBackOff())
+        accountName = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.PREF_ACCOUNT_NAME), null)
+        if (accountName != null) {
+            mCredential!!.selectedAccountName = accountName
+        }
     }
 
     class MyPreferenceFragment : PreferenceFragment(), OnFinishListener {
 
         private lateinit var editor: SharedPreferences.Editor
-        private val SHEET_ID = "sheet_id"
-        private val SHEET_URL = "sheet_url"
-        private val SHEET_NAME = "sheet_name"
-        private val CONNECTED = "connection_token"
 
         override fun onFinish(sheet: Spreadsheet?) {
             Toast.makeText(activity,sheet?.spreadsheetUrl, Toast.LENGTH_LONG).show()
 
-            editor.putString(SHEET_URL,sheet?.spreadsheetUrl)
-            editor.putString(SHEET_ID,sheet?.spreadsheetId)
+            editor.putString(getString(R.string.sheet_url_key),sheet?.spreadsheetUrl)
+            editor.putString(getString(R.string.sheet_id_key),sheet?.spreadsheetId)
             editor.commit()
 
-            val url = this.findPreference(SHEET_URL) as Preference
+            val url = this.findPreference(getString(R.string.sheet_url_key)) as Preference
             url.setSummary(sheet?.spreadsheetUrl)
             url.setEnabled(true)
 
-            val name = this.findPreference(SHEET_NAME) as Preference
+            val name = this.findPreference(getString(R.string.sheet_name_key)) as Preference
             name.setEnabled(false)
         }
 
@@ -92,17 +92,19 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
 
             val ssact  = activity as SingleSettingsActivity
 
-            editor = preferenceManager.sharedPreferences.edit()
+            editor = PreferenceManager.getDefaultSharedPreferences(activity).edit()
 
-            val url = this.findPreference(SHEET_URL) as Preference
-            val connect = this.findPreference(CONNECTED) as SwitchPreference
-            val name = this.findPreference(SHEET_NAME) as EditTextPreference
+            val url = this.findPreference(getString(R.string.sheet_url_key)) as Preference
+            val connect = this.findPreference(getString(R.string.sheet_connect_key)) as SwitchPreference
+            val name = this.findPreference(getString(R.string.sheet_name_key)) as EditTextPreference
 
 
-            url.setSummary(preferenceManager.sharedPreferences.getString(url.key,"sheet_id"))
-            url.setEnabled(preferenceManager.sharedPreferences.getString(url.key,"sheet_id").equals("").not())
-            name.setEnabled(preferenceManager.sharedPreferences.getBoolean(connect.key,true))
-            name.setSummary(preferenceManager.sharedPreferences.getString(name.key,ssact.APP_NAME))
+            url.setSummary(PreferenceManager.getDefaultSharedPreferences(ssact).getString(url.key,getString(R.string.sheet_url_key)))
+            name.setSummary(PreferenceManager.getDefaultSharedPreferences(ssact).getString(name.key,getString(R.string.app_name)))
+
+            name.setEnabled(PreferenceManager.getDefaultSharedPreferences(ssact).getString(url.key,getString(R.string.sheet_url_key)).equals("").not())
+            url.setEnabled(PreferenceManager.getDefaultSharedPreferences(ssact).getString(url.key,getString(R.string.sheet_url_key)).equals("").not())
+
 
             connect.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference: Preference, any: Any ->
 
@@ -113,11 +115,15 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
                     ssact.getAddCredentials()
                     name.setEnabled(true)
 
-                    if(name.text.equals("").not()){
+                    /*
+                    val sheetid = preferenceManager.sharedPreferences.getString(url.key,SingleSettingsActivity::SHEET_URL.toString())
+                    if(sheetid.equals("").not()){
                         //Recuperar el id si existe y sino crear
+                        RetrieveSheetTask(ssact.mCredential, ssact.APP_NAME, this, sheetid).execute()
                     }
+                    */
 
-                    editor.putBoolean("connection_token",true)
+                    editor.putBoolean(getString(R.string.sheet_connect_key),true)
                     editor.commit()
                 }else{
                     name.setEnabled(false)
@@ -125,7 +131,8 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
                     url.summary = ""
                     url.setEnabled(false)
 
-                    editor.putString("sheet_id","")
+                    editor.putString(getString(R.string.sheet_url_key),"")
+                    editor.putString(getString(R.string.sheet_id_key),"")
                     editor.commit()
                 }
 
@@ -137,10 +144,10 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
 
                 name.summary = any.toString()
 
-                editor.putString("sheet_name",any.toString())
+                editor.putString(getString(R.string.sheet_name_key),any.toString())
                 editor.commit()
 
-                CreateSheetTask(ssact.mCredential, ssact.APP_NAME, any.toString(), this).execute()
+                CreateSheetTask(ssact.mCredential, getString(R.string.app_name), this, any.toString(), activity).execute()
 
                 false
             }
@@ -172,7 +179,7 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
 
     private fun chooseAccount() {
         if (EasyPermissions.hasPermissions(this, Manifest.permission.GET_ACCOUNTS)) {
-            val accountName = getPreferences(Context.MODE_PRIVATE).getString(PREF_ACCOUNT_NAME, null)
+            val accountName = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.PREF_ACCOUNT_NAME), null)
             if (accountName != null) {
                 mCredential.selectedAccountName = accountName
                 getAddCredentials()
@@ -194,9 +201,10 @@ class SingleSettingsActivity : AppCompatPreferenceActivity(), EasyPermissions.Pe
                 if (resultCode == Activity.RESULT_OK && data != null && data.extras != null) {
                     val accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
                     if (accountName != null) {
-                        val settings = getPreferences(Context.MODE_PRIVATE)
+                        //val settings = getPreferences(Context.MODE_PRIVATE)
+                        val settings = PreferenceManager.getDefaultSharedPreferences(this)
                         val editor = settings.edit()
-                        editor.putString(PREF_ACCOUNT_NAME, accountName)
+                        editor.putString(getString(R.string.PREF_ACCOUNT_NAME), accountName)
                         editor.apply()
                         mCredential.selectedAccountName = accountName
                         getAddCredentials()
