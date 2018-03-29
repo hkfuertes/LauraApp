@@ -1,7 +1,9 @@
 package net.mfuertes.laurapp.lauraapp
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -65,6 +67,11 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_ajustes -> {
                 // write your code here
                 startActivity(Intent(this, SingleSettingsActivity::class.java))
+                return true
+            }
+            R.id.navigation_web ->{
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(PreferenceManager.getDefaultSharedPreferences(this).getString("sheet_id",null).toString()))
+                startActivity(browserIntent)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

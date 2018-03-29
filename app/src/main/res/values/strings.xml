@@ -102,4 +102,5 @@
     <string name="connect_google">Conectar con Google</string>
     <string name="sheet_name">Nombre del fichero</string>
     <string name="sheet_id">Id del fichero</string>
+    <string name="open_file">Abrir fichero</string>
 </resources>
